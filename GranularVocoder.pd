@@ -1,4 +1,4 @@
-#N canvas 12 23 852 524 12;
+#N canvas 348 170 852 524 12;
 #N canvas 215 23 772 462 dac 0;
 #X obj 340 373 dac~;
 #X obj 162 112 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -4032
@@ -32,7 +32,7 @@
 #X text 103 215 center;
 #X msg 60 262 0.5;
 #X obj 222 112 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -4032
--1 -1 1900 1;
+-1 -1 4400 1;
 #X obj 686 38 inlet;
 #X obj 574 38 inlet;
 #X obj 341 274 *~;
@@ -70,14 +70,14 @@
 #X connect 30 0 0 1;
 #X connect 30 0 32 0;
 #X coords 0 -1 1 1 150 180 1 100 100;
-#X restore 617 314 pd dac;
+#X restore 614 301 pd dac;
 #X obj 247 40 soundfiler;
 #X floatatom 247 63 10 0 0 0 - - -;
 #X msg 247 17 read -resize tayloop1.wav grainArray;
 #X obj 26 239 hsl 128 15 0.001 3 0 0 grainDuration empty empty -2 -8
-0 10 -262144 -1 -1 1800 1;
+0 10 -262144 -1 -1 1100 1;
 #X obj 247 85 s sampleDuration;
-#N canvas 81 475 521 402 gain 0;
+#N canvas 0 346 521 402 gain 1;
 #X obj 313 87 clone grain 16;
 #X obj 94 38 tgl 15 0 empty toggleonoff empty 17 7 0 10 -262144 -1
 -1 0 1;
@@ -92,11 +92,8 @@
 -1;
 #X obj 167 81 r playOneGrain;
 #X obj 154 37 * 1000;
-#N canvas 581 23 450 300 autoplay 0;
-#X obj 130 136 phasor~;
-#X obj 130 161 *~;
+#N canvas 3 23 450 300 autoplay 1;
 #X obj 130 45 r sampleDuration;
-#X floatatom 190 137 8 0 0 0 - - -;
 #X obj 130 68 expr $f2 / $f1;
 #X obj 252 27 loadbang;
 #X obj 252 50 samplerate~;
@@ -108,8 +105,6 @@
 #X obj 22 95 t b f;
 #X obj 22 45 r playbackRate;
 #X text 17 20 autoplay;
-#X obj 130 183 snapshot~;
-#X obj 220 158 r masterGrainBang;
 #N canvas 830 70 450 300 snapshot 0;
 #X obj 68 43 snapshot~;
 #X floatatom 68 96 10 0 0 0 - - -;
@@ -118,40 +113,47 @@
 #X obj 155 25 metro 10;
 #X obj 68 14 inlet~;
 #X obj 68 127 outlet;
-#X obj 68 66 *;
-#X obj 111 66 r grainPitch;
-#X connect 0 0 6 0;
+#X connect 0 0 1 0;
 #X connect 1 0 5 0;
 #X connect 2 0 3 0;
 #X connect 3 0 0 0;
 #X connect 4 0 0 0;
-#X connect 6 0 1 0;
-#X connect 7 0 6 1;
-#X restore 242 225 pd snapshot;
-#X floatatom 242 248 8 0 0 0 - - visualizerLoc;
-#X text 242 205 visualizer;
-#X obj 130 207 spigot;
-#X obj 222 184 r toggleonoff;
+#X restore 130 204 pd snapshot;
+#X obj 130 227 spigot;
+#X obj 278 183 r autoplayToggle;
+#X obj 130 251 s startLoc_rcv;
+#X obj 295 105 r startLoc;
+#X obj 277 131 f;
+#X floatatom 80 225 5 0 0 0 - - -;
+#X floatatom 277 154 5 0 0 0 - - -;
+#X obj 278 206 t f f;
+#X obj 310 229 sel 1;
+#X obj 310 251 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 130 177 phasor~ 0.1;
 #X connect 0 0 1 0;
-#X connect 0 0 16 0;
-#X connect 1 0 14 0;
-#X connect 2 0 4 0;
+#X connect 1 0 5 0;
 #X connect 2 0 3 0;
 #X connect 3 0 1 1;
-#X connect 4 0 8 0;
+#X connect 4 0 3 0;
 #X connect 5 0 6 0;
-#X connect 6 0 4 1;
-#X connect 7 0 6 0;
-#X connect 8 0 9 0;
-#X connect 9 0 0 0;
-#X connect 10 0 11 0;
-#X connect 11 0 9 0;
-#X connect 11 1 9 1;
-#X connect 12 0 10 0;
-#X connect 14 0 19 0;
-#X connect 15 0 14 0;
-#X connect 16 0 17 0;
-#X connect 20 0 19 1;
+#X connect 6 0 22 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 0;
+#X connect 8 1 6 1;
+#X connect 9 0 7 0;
+#X connect 11 0 12 0;
+#X connect 11 0 17 0;
+#X connect 12 0 14 0;
+#X connect 13 0 19 0;
+#X connect 15 0 16 1;
+#X connect 16 0 18 0;
+#X connect 16 0 22 1;
+#X connect 19 0 12 1;
+#X connect 19 1 20 0;
+#X connect 20 0 21 0;
+#X connect 20 0 16 0;
+#X connect 22 0 11 0;
 #X restore 313 13 pd autoplay;
 #X msg 313 65 next 1;
 #X obj 47 286 * 44100;
@@ -173,14 +175,14 @@
 #X connect 15 0 18 0;
 #X connect 16 0 14 0;
 #X connect 17 0 16 0;
-#X restore 609 12 pd gain control;
+#X restore 609 13 pd gain control;
 #X obj 25 299 hsl 128 15 -3 3 0 0 playbackRate empty empty -2 -8 0
-10 -262144 -1 -1 3500 1;
+10 -262144 -1 -1 8567 1;
 #X floatatom 22 319 5 0 0 0 - - -;
 #X text 20 279 playback rate;
 #X text 20 222 grain duration;
 #X obj 24 359 hsl 128 15 0.002 1 0 0 grainDensity empty empty -2 -8
-0 10 -262144 -1 -1 2000 1;
+0 10 -262144 -1 -1 1200 1;
 #X text 19 339 grain density;
 #X obj 154 202 tgl 15 0 toggleonoff empty empty 17 7 0 10 -262144 -1
 -1 0 1;
@@ -190,20 +192,20 @@
 #X coords 0 1 159862 -1 200 140 1 0 0;
 #X restore 21 19 graph;
 #X obj 24 163 hsl 195 15 0 1 0 0 startLoc startLoc_rcv empty -2 -8
-0 10 -262144 -1 -1 1200 1;
+0 10 -262144 -1 -1 3364 1;
 #X obj 23 200 bng 15 250 50 0 playOneGrain empty empty 17 7 0 10 -262144
 -1 -1;
 #X text 42 201 play one grain;
 #X obj 616 245 catch~ grainOut;
 #X obj 616 268 *~ 0.8;
 #X obj 26 423 hsl 128 15 0 2 0 0 grainPitch empty empty -2 -8 0 10
--262144 -1 -1 10100 1;
+-262144 -1 -1 2455 1;
 #X text 20 405 pitch;
 #X floatatom 23 443 5 0 0 0 - - -;
 #X floatatom 23 259 5 0 0 0 - - -;
 #X floatatom 21 379 5 0 0 0 - - -;
 #X obj 308 200 tgl 15 0 autoplayToggle empty empty 17 7 0 10 -262144
--1 -1 0 1;
+-1 -1 1 1;
 #X text 331 199 autoplay;
 #X obj 480 436 env~;
 #X floatatom 480 459 5 0 0 0 - - -;
@@ -394,6 +396,41 @@
 #X obj 229 201 tgl 15 0 reverse empty empty 17 7 0 10 -262144 -1 -1
 0 1;
 #X text 249 200 reverse;
+#N canvas 141 23 450 330 keyboard 0;
+#X floatatom 34 70 0 0 0 0 - - -;
+#X obj 15 19 notein;
+#X floatatom 15 93 0 0 0 0 - - -;
+#X floatatom 54 45 0 0 0 0 - - -;
+#X text 64 71 velocity;
+#X text 83 47 channel;
+#X text 65 18 (omni);
+#X text 45 93 note;
+#X obj 15 116 mtof;
+#X floatatom 15 139 8 0 0 0 - - -;
+#X text 83 141 65 Hz to 2093 Hz;
+#X text 84 157 2028 Hz range;
+#X obj 15 267 outlet;
+#X text 75 288 output pitch %;
+#X obj 15 161 / 2028;
+#X obj 15 184 t b f;
+#X obj 75 267 outlet;
+#X text 14 289 bang;
+#X obj 15 210 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 15 230 sel 1;
+#X connect 1 0 2 0;
+#X connect 1 1 0 0;
+#X connect 1 2 3 0;
+#X connect 2 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 18 0;
+#X connect 15 1 16 0;
+#X connect 18 0 19 0;
+#X connect 19 0 12 0;
+#X restore 652 68 pd keyboard;
+#X floatatom 726 93 5 0 0 0 - - -;
 #X connect 0 0 28 0;
 #X connect 1 0 2 0;
 #X connect 2 0 5 0;
@@ -407,3 +444,7 @@
 #X connect 21 0 23 0;
 #X connect 28 0 29 0;
 #X connect 30 0 21 0;
+#X connect 30 0 7 0;
+#X connect 34 0 17 0;
+#X connect 34 1 35 0;
+#X connect 35 0 21 0;

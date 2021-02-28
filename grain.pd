@@ -42,6 +42,7 @@
 #X msg 110 207 0 \$1;
 #X msg 142 183 1;
 #X obj 279 303 f;
+#X obj 239 8 loadbang;
 #X connect 0 0 26 0;
 #X connect 1 0 2 0;
 #X connect 3 0 10 0;
@@ -93,3 +94,5 @@
 #X connect 39 0 16 0;
 #X connect 40 0 16 0;
 #X connect 41 0 0 1;
+#X connect 42 0 33 0;
+#X connect 42 0 35 0;
